@@ -104,7 +104,7 @@ publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
 # Lets check that the user wants to continue first as obviously otherwise we'll be removing AppArmor for no reason.
 while true; do
-read -e -p "Would you like to continue (y/n)? " yn
+read -p "Would you like to continue (y/n)? " yn
     case $yn in
 		[Yy]* ) break;;
 		[Nn]* ) exit;
@@ -132,15 +132,15 @@ apt-get -yqq install tzdata &>/dev/null
 # Installer options
 while true; do
 	#echo -e "Find your timezone from : http://php.net/manual/en/timezones.php e.g Europe/London"
-	#read -e -p "Enter your timezone: " -i "Europe/London" tz
+	#read -p "Enter your timezone: " -i "Europe/London" tz
 	dpkg-reconfigure tzdata
 	tz=`cat /etc/timezone`
 	echo -e "Enter the FQDN you will use to access ZPanel on your server."
 	echo -e "- It MUST be a sub-domain of you main domain, it MUST NOT be your main domain only. Example: panel.yourdomain.com"
 	echo -e "- Remember that the sub-domain ('panel' in the example) MUST be setup in your DNS nameserver."
-	read -e -p "FQDN for zpanel: " -i $fqdn fqdn
-	read -e -p "Enter the public (external) server IP: " -i $publicip publicip
-    read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
+	read -p "FQDN for zpanel: " -i $fqdn fqdn
+	read -p "Enter the public (external) server IP: " -i $publicip publicip
+    read -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
     case $yn in
         [Yy]* ) break;;
         [Nn]* ) exit;
@@ -461,7 +461,7 @@ echo -e "##############################################################" &>/dev/
 echo -e "" &>/dev/tty
 
 # We now request that the user restarts their server...
-read -e -p "You Must Restart your server now to complete the install (y/n)? " rsn
+read -p "You Must Restart your server now to complete the install (y/n)? " rsn
 while true; do
 	case $rsn in
 		[Yy]* ) break;;
