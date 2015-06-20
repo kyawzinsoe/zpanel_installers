@@ -79,24 +79,24 @@ passwordgen() {
 }
 
 # Display the 'welcome' splash/user warning info..
-echo -e ""
-echo -e "##############################################################"
-echo -e "# Official ZPanel Automated Installation Script BETA 2       #"
-echo -e "# Welcome to the Official ZPanelX Installer for Ubuntu       #"
-echo -e "# Server 14.04.x LTS                                         #"
-echo -e "#                                                            #"
-echo -e "# Please make sure your VPS provider hasn't pre-installed    #"
-echo -e "# any packages required by ZPanelX.                          #"
-echo -e "#                                                            #"
-echo -e "# If you are installing on a physical machine where the OS   #"
-echo -e "# has been installed by yourself please make sure you only   #"
-echo -e "# installed Ubuntu Server with no extra packages.            #"
-echo -e "#                                                            #"
-echo -e "# If you selected additional options during the Ubuntu       #"
-echo -e "# install please consider reinstalling without them.         #"
-echo -e "#                                                            #"
-echo -e "##############################################################"
-echo -e ""
+echo ""
+echo "##############################################################"
+echo "# Official ZPanel Automated Installation Script BETA 2       #"
+echo "# Welcome to the Official ZPanelX Installer for Ubuntu       #"
+echo "# Server 14.04.x LTS                                         #"
+echo "#                                                            #"
+echo "# Please make sure your VPS provider hasn't pre-installed    #"
+echo "# any packages required by ZPanelX.                          #"
+echo "#                                                            #"
+echo "# If you are installing on a physical machine where the OS   #"
+echo "# has been installed by yourself please make sure you only   #"
+echo "# installed Ubuntu Server with no extra packages.            #"
+echo "#                                                            #"
+echo "# If you selected additional options during the Ubuntu       #"
+echo "# install please consider reinstalling without them.         #"
+echo "#                                                            #"
+echo "##############################################################"
+echo ""
 
 # Set some installation defaults/auto assignments
 fqdn=`/bin/hostname`
@@ -114,14 +114,14 @@ done
 # We need to disable and remove AppArmor...
 [ -f /etc/init.d/apparmor ]
 if [ $? = "0" ]; then
-    echo -e ""
-    echo -e "Disabling and removing AppArmor, please wait..."
+    echo ""
+    echo "Disabling and removing AppArmor, please wait..."
       /etc/init.d/apparmor stop &> /dev/null
   	update-rc.d -f apparmor remove &> /dev/null
   	apt-get -y remove apparmor &> /dev/null
 	mv /etc/init.d/apparmor /etc/init.d/apparmpr.removed &> /dev/null
 	##after removing AppArmor reboot is not obligatory
-	echo -e "Please restart the server and run the installer again. AppArmor has been removed."
+	echo "Please restart the server and run the installer again. AppArmor has been removed."
         #exit
 fi
 
@@ -131,13 +131,13 @@ apt-get -yqq install tzdata &>/dev/null
 
 # Installer options
 while true; do
-	#echo -e "Find your timezone from : http://php.net/manual/en/timezones.php e.g Europe/London"
+	#echo "Find your timezone from : http://php.net/manual/en/timezones.php e.g Europe/London"
 	#read -p "Enter your timezone: " -i "Europe/London" tz
 	dpkg-reconfigure tzdata
 	tz=`cat /etc/timezone`
-	echo -e "Enter the FQDN you will use to access ZPanel on your server."
-	echo -e "- It MUST be a sub-domain of you main domain, it MUST NOT be your main domain only. Example: panel.yourdomain.com"
-	echo -e "- Remember that the sub-domain ('panel' in the example) MUST be setup in your DNS nameserver."
+	echo "Enter the FQDN you will use to access ZPanel on your server."
+	echo "- It MUST be a sub-domain of you main domain, it MUST NOT be your main domain only. Example: panel.yourdomain.com"
+	echo "- Remember that the sub-domain ('panel' in the example) MUST be setup in your DNS nameserver."
 	read -p "FQDN for zpanel: " -i $fqdn fqdn
 	read -p "Enter the public (external) server IP: " -i $publicip publicip
     read -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
@@ -148,10 +148,10 @@ while true; do
 done
 
 # Start log creation.
-echo -e ""
-echo -e "# Generating installation log and debug info..."
+echo ""
+echo "# Generating installation log and debug info..."
 uname -a
-echo -e ""
+echo ""
 dpkg --get-selections
 
 # We need to update the enabled Aptitude repositories
@@ -204,9 +204,11 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get install -y at mysql-server mysql-server apache2 libapache2-mod-php5 libapache2-mod-bw php5-common php5-cli php5-mysql php5-gd php5-mcrypt php5-curl php-pear php5-imap php5-xmlrpc php5-xsl zip webalizer build-essential bash-completion dovecot-mysql dovecot-imapd dovecot-pop3d dovecot-common dovecot-managesieved dovecot-lmtpd postfix postfix-mysql libsasl2-modules-sql libsasl2-modules proftpd-mod-mysql bind9 bind9utils php5-suhosin
 
 # Generation of random passwords
-password=`passwordgen`;
-postfixpassword=`passwordgen`;
-zadminNewPass=`passwordgen`;
+#password=`passwordgen`;
+#postfixpassword=`passwordgen`;
+#zadminNewPass=`passwordgen`;
+
+
 
 
 echo $password
@@ -443,22 +445,22 @@ cd ../
 rm -rf zp_install_cache/ zpanelx/
 
 # Advise the user that ZPanel is now installed and accessible.
-echo -e "##############################################################" &>/dev/tty
-echo -e "# Congratulations ZpanelX has now been installed on your     #" &>/dev/tty
-echo -e "# server. Please review the log file left in /root/ for      #" &>/dev/tty
-echo -e "# any errors encountered during installation.                #" &>/dev/tty
-echo -e "#                                                            #" &>/dev/tty
-echo -e "# Save the following information somewhere safe:             #" &>/dev/tty
-echo -e "# MySQL Root Password    : $password" &>/dev/tty
-echo -e "# MySQL Postfix Password : $postfixpassword" &>/dev/tty
-echo -e "# ZPanelX Username       : zadmin                            #" &>/dev/tty
-echo -e "# ZPanelX Password       : $zadminNewPass" &>/dev/tty
-echo -e "#                                                            #" &>/dev/tty
-echo -e "# ZPanelX Web login can be accessed using your server IP     #" &>/dev/tty
-echo -e "# inside your web browser.                                   #" &>/dev/tty
-echo -e "#                                                            #" &>/dev/tty
-echo -e "##############################################################" &>/dev/tty
-echo -e "" &>/dev/tty
+echo "##############################################################" &>/dev/tty
+echo "# Congratulations ZpanelX has now been installed on your     #" &>/dev/tty
+echo "# server. Please review the log file left in /root/ for      #" &>/dev/tty
+echo "# any errors encountered during installation.                #" &>/dev/tty
+echo "#                                                            #" &>/dev/tty
+echo "# Save the following information somewhere safe:             #" &>/dev/tty
+echo "# MySQL Root Password    : $password" &>/dev/tty
+echo "# MySQL Postfix Password : $postfixpassword" &>/dev/tty
+echo "# ZPanelX Username       : zadmin                            #" &>/dev/tty
+echo "# ZPanelX Password       : $zadminNewPass" &>/dev/tty
+echo "#                                                            #" &>/dev/tty
+echo "# ZPanelX Web login can be accessed using your server IP     #" &>/dev/tty
+echo "# inside your web browser.                                   #" &>/dev/tty
+echo "#                                                            #" &>/dev/tty
+echo "##############################################################" &>/dev/tty
+echo "" &>/dev/tty
 
 # We now request that the user restarts their server...
 read -p "You Must Restart your server now to complete the install (y/n)? " rsn
