@@ -460,14 +460,14 @@ echo "# ZPanelX Web login can be accessed using your server IP     #" &>/dev/tty
 echo "# inside your web browser.                                   #" &>/dev/tty
 echo "#                                                            #" &>/dev/tty
 echo "##############################################################" &>/dev/tty
-echo "" &>/dev/tty
-
+#echo "" &>/dev/tty
+echo "System is rebootting..."
 # We now request that the user restarts their server...
-read -p "You Must Restart your server now to complete the install (y/n)? " rsn
-while true; do
-	case $rsn in
-		[Yy]* ) break;;
-		[Nn]* ) exit;
-	esac
-done
+#read -p "You Must Restart your server now to complete the install (y/n)? " rsn
+#while true; do
+#	case $rsn in
+#		[Yy]* ) break;;
+#		[Nn]* ) exit;
+#	esac
+#done
 shutdown -r now
