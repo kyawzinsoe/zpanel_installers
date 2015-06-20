@@ -204,9 +204,12 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get install -y at mysql-server mysql-server apache2 libapache2-mod-php5 libapache2-mod-bw php5-common php5-cli php5-mysql php5-gd php5-mcrypt php5-curl php-pear php5-imap php5-xmlrpc php5-xsl zip webalizer build-essential bash-completion dovecot-mysql dovecot-imapd dovecot-pop3d dovecot-common dovecot-managesieved dovecot-lmtpd postfix postfix-mysql libsasl2-modules-sql libsasl2-modules proftpd-mod-mysql bind9 bind9utils php5-suhosin
 
 # Generation of random passwords
-password='password';
-postfixpassword='password';
-zadminNewPass='password';
+read -p "Enter mysql password:" password
+#password='password';
+read -p "Enter pstfix password:" postfixpassword
+#postfixpassword='password';
+read -p "Enter Zpanel Admin password:" zadminNewPass
+#zadminNewPass='password';
 
 
 
